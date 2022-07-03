@@ -4,6 +4,16 @@ import plotly.express as px
 from dash import Dash, dcc, html
 from dash.dependencies import Input, Output
 import json
+import requests
+
+vault_domain_name = "candidate-tech-services---sergio.veevavault.com"
+version = "v22.1"
+user = "sergio.pina@candidate.com"
+pwd = "1MyPassword!"
+
+api_url = "https://" + vault_domain_name + "/api/" + version + "/auth"
+
+json_body = {'username': user, 'password': pwd}
 
 us_cities = pd.read_csv("https://raw.githubusercontent.com/plotly/datasets/master/us-cities-top-1k.csv")
 us_cities = us_cities.query("State in ['New York', 'Ohio']")
@@ -65,15 +75,18 @@ app.layout = html.Div([
 def display_selected_data(selectedData):
     try:
         # print(selectedData["points"][0]["customdata"])
-        items = selectedData["points"][0]["customdata"]
+        # items = selectedData["points"][0]["customdata"]
         # for i, item in enumerate(items):
         #     item = item + ", "
         #     items[i] = item
         # return items[2]
-        print(items[2])
-        return html.Div([dcc.Markdown("""Info: 
-        """ + items[0] + """,
-        """ + items[1]), html.A(items[2], href=items[2], target="_blank")])
+        # print(items[2])
+        # return html.Div([dcc.Markdown("""Info:
+        # """ + items[0] + """,
+        # """ + items[1]), html.A(items[2], href=items[2], target="_blank")])
+        response = requests.post(api_url, json_body).json()['sessionId']
+        print(response)
+        return response
     except Exception as e:
         print("No selected data yet.")
         # return json.dumps(selectedData, indent=2)
