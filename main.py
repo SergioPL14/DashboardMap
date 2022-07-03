@@ -35,7 +35,7 @@ fig = px.scatter_mapbox(us_cities, lat="lat", lon="lon", color="Status", color_d
     "Inactive": "orange",
     "Active": "green",
     "Archived": "grey",
-    "Non site": "black"}, custom_data=["City", "State", "Links"], zoom=3, height=300)
+    "Non site": "black"}, custom_data=["City", "State", "Links"], zoom=3, height=700)
 
 fig.update_layout(clickmode='event+select', mapbox_style="open-street-map", mapbox_zoom=4, mapbox_center_lat=41,
                   margin={"r": 0, "t": 0, "l": 0, "b": 0})
@@ -71,11 +71,13 @@ def display_selected_data(selectedData):
         #     items[i] = item
         # return items[2]
         print(items[2])
-        return html.Div([dcc.Markdown(items[0]  + items[1] + '\n'), html.A(items[2], href=items[2], target="_blank")])
+        return html.Div([dcc.Markdown("""Info: 
+        """ + items[0] + """,
+        """ + items[1]), html.A(items[2], href=items[2], target="_blank")])
     except Exception as e:
         print("No selected data yet.")
         # return json.dumps(selectedData, indent=2)
-        return 0
+        return "No site selected."
 
 
 if __name__ == '__main__':
