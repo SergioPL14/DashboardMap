@@ -5,17 +5,23 @@ from dash import Dash, dcc, html
 from dash.dependencies import Input, Output
 import json
 import requests
+import yaml
 
-vault_domain_name = "candidate-tech-services---sergio.veevavault.com"
-version = "v22.1"
-user = "sergio.pina@candidate.com"
-pwd = "1MyPassword!"
+# vault_domain_name = "candidate-tech-services---sergio.veevavault.com"
+# version = "v22.1"
+# user = "sergio.pina@candidate.com"
+# pwd = "1MyPassword!"
+#
 
-api_url = "https://" + vault_domain_name + "/api/" + version + "/auth"
 
-json_body = {'username': user, 'password': pwd}
+with open('config.yaml') as f:
+    config = yaml.load(f, Loader=yaml.FullLoader)
 
-us_cities = pd.read_csv("https://raw.githubusercontent.com/plotly/datasets/master/us-cities-top-1k.csv")
+api_url = "https://" + config['vault_domain_name'] + "/api/" + config['version'] + "/auth"
+
+json_body = {'username': config['user'], 'password': config['pwd']}
+
+us_cities = pd.read_csv(config['us_cities_url'])
 us_cities = us_cities.query("State in ['New York', 'Ohio']")
 
 styles = {
