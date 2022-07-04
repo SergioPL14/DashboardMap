@@ -92,6 +92,10 @@ def display_selected_data(selectedData):
         # """ + items[1]), html.A(items[2], href=items[2], target="_blank")])
         response = requests.post(api_url, json_body).json()['sessionId']
         print(response)
+
+        api_url = "https://" + config['vault_domain_name'] + "/api/" + config['version'] + "/vobjects/location__v"
+        json_body = {'username': config['user'], 'password': config['pwd'], 'Authorization': json_body['sessionId']}
+
         return response
     except Exception as e:
         print("No selected data yet.")
