@@ -43,9 +43,9 @@ def numbers_to_colours(argument):
 mapInfo = mu.getMapInfo()
 
 fig = px.scatter_mapbox(mapInfo, lat="latitude", lon="longitude", color="status__v", hover_data=["name__v", "id", "address_line_1__clin"], color_discrete_map={
-    "Inactive": "orange",
+    "inactive__v": "orange",
     "active__v": "green",
-    "Archived": "grey",
+    "archived__v": "grey",
     "Non site": "black"}, custom_data=["url"], zoom=2, height=700)
 
 fig.update_layout(clickmode='event+select', mapbox_style="open-street-map", mapbox_zoom=2, mapbox_center_lat=41,
