@@ -28,7 +28,7 @@ def getSitesAttributes(json_sessionId, df, config):
         response = requests.get(api_url, json_body, headers=headers)
         df2 = pd.concat([df2, pd.DataFrame(response.json()['data'])[
             ['id', 'location__v', 'status__v', 'state__v', 'site_status__v']]], ignore_index=True)
-    df2['url'] = "https://" + config['vault_domain_name'] + "/ui/#t/0TB000000000K15/0ST/" + df2['id']
+    df2['url'] = "https://" + config['vault_domain_name'] + "/ui/#t/0TB000000000K15/0SI/" + df2['id']
     return pd.merge(df, df2, on="id")
 
 
@@ -98,5 +98,6 @@ def getMapInfo():
 # 2 Interar en sites para obtener Location, Status (state? sit_state?), URL
 # URL: https://candidate-tech-services---sergio.veevavault.com/ui/#t/0TB000000000K15/0ST/0ST000000001001
 # URL: https://candidate-tech-services---sergio.veevavault.com/ui/#t/0TB000000000K15/0SC/0SC000000002002
+# URL: https://candidate-tech-services---sergio.veevavault.com/ui/#t/0TB000000000K15/0ST/0SI000000002001
 # 3 Iterar en locations para tener coordenadas
 # 4 Montar DF
