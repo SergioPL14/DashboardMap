@@ -42,11 +42,11 @@ def numbers_to_colours(argument):
 
 mapInfo = mu.getMapInfo()
 
-fig = px.scatter_mapbox(mapInfo, lat="latitude", lon="longitude", color="status__v", color_discrete_map={
+fig = px.scatter_mapbox(mapInfo, lat="latitude", lon="longitude", color="status__v", hover_data=["name__v", "id", "address_line_1__clin"], color_discrete_map={
     "Inactive": "orange",
     "active__v": "green",
     "Archived": "grey",
-    "Non site": "black"}, custom_data=["id", "status__v", "address_line_1__clin", "url"], zoom=2, height=700)
+    "Non site": "black"}, custom_data=["url"], zoom=2, height=700)
 
 fig.update_layout(clickmode='event+select', mapbox_style="open-street-map", mapbox_zoom=2, mapbox_center_lat=41,
                   margin={"r": 0, "t": 0, "l": 0, "b": 0})
@@ -57,16 +57,16 @@ app.layout = html.Div([
         figure=fig
     ),
 
-    html.Div(className='row', children=[
+    # html.Div(className='row', children=[
         html.Div([
             dcc.Markdown("""
                 **Study information**
 
                 Find below the information regarding the selected site.
-            """),
-            html.Div(id='selected-data')
-        ])
-    ])
+            """)
+        ]),
+    html.Div(id='selected-data')
+    # ])
 ])
 
 
@@ -75,7 +75,9 @@ app.layout = html.Div([
     Input('dashboard-map', 'selectedData'))
 def display_selected_data(selectedData):
     try:
-        return selectedData["points"][0]["customdata"] #["url"]
+        item = selectedData["points"][0]["customdata"]
+        return html.A(selectedData["points"][0]["customdata"][0], href=selectedData["points"][0]["customdata"][0], target="_blank")
+        # return html.A(selectedData["points"][0]["customdata"][0])
     except Exception as e:
         print("No selected data yet.")
         return "No site selected."
