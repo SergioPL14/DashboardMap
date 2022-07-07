@@ -24,6 +24,7 @@ fig = px.scatter_mapbox(mapInfo, lat="latitude", lon="longitude", color="State",
 
 fig.update_layout(clickmode='event+select', mapbox_style="open-street-map", mapbox_zoom=2, mapbox_center_lat=41,
                   margin={"r": 0, "t": 0, "l": 0, "b": 0})
+fig.update_traces(marker_size=40)
 
 app.layout = html.Div([
     dcc.Graph(
@@ -60,7 +61,7 @@ def display_selected_data(selectedData):
 
 @app.server.route('/session/', methods=['POST'])
 def result():
-    print(request.args.get('session'))
+    print(request.args.get("glossary"))
     return 'Received !'  # response to your request.
 
 
