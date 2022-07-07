@@ -86,7 +86,15 @@ def polishDf(df):
     df = df.rename(columns={'state__v': 'State', 'name__v': 'StudyNumber', 'address_line_1__clin': 'Address',
                             'status__v': 'Status'})
     df = df.fillna('N/A')
+    df['SizeDots'] = df['id'].apply(lambda id: idToSize(id))
     return df
+
+
+def idToSize(input):
+    if input.find('0SC') != -1:
+        return 25
+    else:
+        return 10
 
 
 def getMapInfo():
@@ -102,7 +110,7 @@ def getMapInfo():
     mapInfo = polishDf(mapInfo)
     return mapInfo
 
-
+getMapInfo()
 ################## 1 SITES
 # df = pd.DataFrame(response.json()['data'])
 

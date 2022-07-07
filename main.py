@@ -15,17 +15,18 @@ app = Dash(__name__)
 
 mapInfo = mu.getMapInfo()
 
-fig = px.scatter_mapbox(mapInfo, lat="latitude", lon="longitude", color="State",
+fig = px.scatter_mapbox(mapInfo, lat="latitude", lon="longitude", color="State", size="SizeDots",
                         hover_data=["StudyNumber", "Country", "Status", "id", "Address"], color_discrete_map={
         "closing_state__v": "grey",
         "active_state__v": "green",
         "candidate_state__v": "yellow",
         "archived__v": "grey",
+        "not_selected_state__v": "black",
+        "initiating_state__v": "lightgreen",
         "Non site": "black"}, custom_data=["url"], zoom=2, height=900)
 
 fig.update_layout(clickmode='event+select', mapbox_style="open-street-map", mapbox_zoom=2, mapbox_center_lat=41,
                   margin={"r": 0, "t": 0, "l": 0, "b": 0})
-fig.update_traces(marker_size=15)
 
 app.layout = html.Div([
     dcc.Graph(
