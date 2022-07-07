@@ -2,6 +2,7 @@ import plotly.express as px
 import yaml
 from dash import Dash, dcc, html
 from dash.dependencies import Input, Output
+from flask import request
 
 import mapUtils as mu
 
@@ -19,12 +20,10 @@ fig = px.scatter_mapbox(mapInfo, lat="latitude", lon="longitude", color="State",
         "inactive__v": "orange",
         "active__v": "green",
         "archived__v": "grey",
-        "Non site": "black"}, custom_data=["url"], zoom=2, height=700)
+        "Non site": "black"}, custom_data=["url"], zoom=2, height=900)
 
 fig.update_layout(clickmode='event+select', mapbox_style="open-street-map", mapbox_zoom=2, mapbox_center_lat=41,
                   margin={"r": 0, "t": 0, "l": 0, "b": 0})
-
-fig.update_traces(marker={'size': 15})
 
 app.layout = html.Div([
     dcc.Graph(
@@ -57,6 +56,12 @@ def display_selected_data(selectedData):
     except Exception as e:
         print("No selected data yet.")
         return "No site selected."
+
+
+@app.server.route('/session/', methods=['POST'])
+def result():
+    print(request.args.get('session'))
+    return 'Received !'  # response to your request.
 
 
 if __name__ == '__main__':
