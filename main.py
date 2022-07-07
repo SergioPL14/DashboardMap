@@ -17,8 +17,9 @@ mapInfo = mu.getMapInfo()
 
 fig = px.scatter_mapbox(mapInfo, lat="latitude", lon="longitude", color="State",
                         hover_data=["StudyNumber", "Country", "Status", "id", "Address"], color_discrete_map={
-        "inactive__v": "orange",
-        "active__v": "green",
+        "closing_state__v": "grey",
+        "active_state__v": "green",
+        "candidate_state__v": "yellow",
         "archived__v": "grey",
         "Non site": "black"}, custom_data=["url"], zoom=2, height=900)
 
