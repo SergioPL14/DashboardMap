@@ -59,7 +59,7 @@ def display_selected_data(selectedData):
         return "No site selected."
 
 
-@app.server.route('/session/', methods=['POST'])
+@app.server.route('/', methods=['POST'])
 def result():
     print(request.args.get("glossary"))
     return 'Received !'  # response to your request.
