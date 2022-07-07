@@ -1,6 +1,6 @@
 from geopy.geocoders import Nominatim
 
 geolocator = Nominatim(user_agent="dashboardmap")
-location = geolocator.geocode("1-16-10 Shibaura, Minato-ku, Tokyo")
+location = geolocator.geocode("Spain")
 print(location.address)
 print((location.latitude, location.longitude))
