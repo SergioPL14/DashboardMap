@@ -1,3 +1,5 @@
+import os
+
 import plotly.express as px
 import yaml
 from dash import Dash, dcc, html
@@ -12,6 +14,7 @@ import mapUtils as mu
 # json_body = {'username': config['user'], 'password': config['pwd']}
 
 app = Dash(__name__)
+app._static_folder = os.path.abspath("templates/static/")
 server = app.server
 
 # mapInfo = mu.getMapInfo()
@@ -63,10 +66,10 @@ def display_selected_data(selectedData):
         return "No site selected."
 
 
-@server.post('/')
+@server.post('/postmethod')
 def background_process():
     try:
-        msg = request.args.get('message', 0, type=str)
+        msg = request.form.get('key')
         return "############### MESSAGE RECEIVED ################" + msg
     except Exception as e:
         return "############### MESSAGE NOT RECEIVED ################"
