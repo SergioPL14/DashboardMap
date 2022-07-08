@@ -64,8 +64,13 @@ def display_selected_data(selectedData):
 
 
 @server.post('/')
-def hello():
-    return "############### MESSAGE RECEIVED ################"
+def background_process():
+    try:
+        msg = request.args.get('message', 0, type=str)
+        return "############### MESSAGE RECEIVED ################" + msg
+    except Exception as e:
+        return "############### MESSAGE NOT RECEIVED ################"
+
     # return request.form.get('message')
     # return 'Hello, World!'
 
