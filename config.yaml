@@ -1,8 +1,4 @@
-# API needs
 vault_domain_name: "candidate-tech-services---sergio.veevavault.com"
 version: "v22.1"
 user: "sergio.pina@candidate.com"
 pwd: "1MyPassword!"
-
-# Data source
-us_cities_url: "https://raw.githubusercontent.com/plotly/datasets/master/us-cities-top-1k.csv"

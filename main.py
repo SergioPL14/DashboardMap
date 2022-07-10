@@ -1,5 +1,3 @@
-import os
-
 import plotly.express as px
 import yaml
 from dash import Dash, dcc, html
@@ -13,8 +11,6 @@ api_url = "https://" + config['vault_domain_name'] + "/api/" + config['version']
 json_body = {'username': config['user'], 'password': config['pwd']}
 
 app = Dash(__name__)
-app._static_folder = os.path.abspath("templates/static/")
-server = app.server
 
 mapInfo = mu.getMapInfo()
 

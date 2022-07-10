@@ -38,18 +38,15 @@ def getLocations(headers, df, url):
             df_aux = pd.DataFrame(response)[["id", "address_line_1__clin"]]
             lat = geolocator.geocode(response['address_line_1__clin']).latitude
             lon = geolocator.geocode(response['address_line_1__clin']).longitude
-            df_aux[["latitude", "longitude"]] = [lat, lon]
-            df2 = pd.concat(
-                [df2, df_aux], ignore_index=True)
         except Exception as e:
             endpoint = url + "/vobjects/country__v/" + loc
             response = requests.get(endpoint, headers=headers).json()['data']
             df_aux = pd.DataFrame(response)[["id"]]
             lat = geolocator.geocode(response['name__v']).latitude
             lon = geolocator.geocode(response['name__v']).longitude
-            df_aux[["latitude", "longitude"]] = [lat, lon]
-            df2 = pd.concat(
-                [df2, df_aux], ignore_index=True)
+        df_aux[["latitude", "longitude"]] = [lat, lon]
+        df2 = pd.concat(
+            [df2, df_aux], ignore_index=True)
     df2 = df2.rename(columns={'id': 'location__v'})
     return pd.merge(df, df2, on="location__v")
 
