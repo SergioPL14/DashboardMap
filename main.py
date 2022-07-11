@@ -22,7 +22,7 @@ fig = px.scatter_mapbox(mapInfo, lat="latitude", lon="longitude", color="Colour"
     "black": "black",
     "lightgreen": "lightgreen",
     "black": "black"},
-                        hover_data=["StudyNumber", "Country", "Status", "id", "Address"], custom_data=["url"], zoom=2,
+                        hover_data=["StudyNumber", "Country", "Status", "State", "id", "Address"], custom_data=["url"], zoom=2,
                         height=900)
 
 fig.update_layout(clickmode='event+select', mapbox_style="open-street-map", mapbox_zoom=2, mapbox_center_lat=41,
